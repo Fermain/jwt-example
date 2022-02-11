@@ -1,4 +1,5 @@
 import { baseURL, authPath } from "../constants/api.js";
+import * as storage from '../storage/index.js';
 
 export async function auth(username, password) {
   const url = baseURL + authPath;
@@ -28,4 +29,14 @@ export async function auth(username, password) {
     alert('Login failed, please check your credentials');
     return null;
   }
+}
+
+export function isAuthed() {
+  return Boolean(storage.load('token'))
+}
+
+export function logOut(event) {
+  storage.remove('token');
+  alert('Logged out');
+  window.location.reload()
 }
